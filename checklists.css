@@ -1,0 +1,132 @@
+/**
+ *  Ephemeral checkists for PmWiki
+ *  Written by (2022) Petko Yotov www.pmwiki.org/petko
+ *
+ *  This text is written for PmWiki; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published
+ *  by the Free Software Foundation; either version 3 of the License, or
+ *  (at your option) any later version. See pmwiki.php for full details
+ *  and lack of warranty.
+ *
+ *  Copyright 2022 Petko Yotov pmwiki.org/petko
+ *  Version: 20220611
+ */
+
+
+/* 
+ * These may need to be adapted for the color theme of the website.
+ * You can override any of them in pub/css/local.css 
+ */
+.pmchecklist {
+  --check-border: 2px solid black;
+  
+  --theme-color:  #05b;   /* labels, separator line */
+  --theme-bgcolor: white;  /* under "Done" */
+  --highlight-color: #ff0; /* when moving items */
+
+  
+  /* finished tasks: text color and inner color of the checkbox */
+  --done-color: #888; 
+  --check-fill: #bbb;
+  
+  /* started tasks: text color and inner color of the checkbox */
+  --started-color: orangered;
+  --check-started: orangered;
+
+/*  line after "Done-----" may need adjustment 
+ *  depending on the font used  */
+  --linepos: 55%;
+}
+
+.pmchecklist li {
+  list-style-type: none;
+  margin: .3em 0;
+}
+.pmchecklist li[data-done] {
+  list-style-type: none;
+  padding-left: 1.1em;
+}
+
+.pmchecklist > li[data-done]:before {
+  box-sizing: border-box;
+  content: ' ';
+  display: inline-block;
+  width: .8em;
+  height: .8em;
+  border: var(--check-border);
+  margin-left: -1.1em;
+  margin-right: .3em;
+}
+
+.pmchecklist > li[data-done="2"]:before {
+  background-color: var(--check-fill);
+}
+
+.pmchecklist > li[data-done="1"]:before {
+  background: linear-gradient( 135deg, var(--check-started), var(--check-started) 50%, transparent 50%, transparent );
+}
+
+.pmchecklist .pmcheckall,
+.pmchecklist > li[data-done]  {
+  cursor: pointer;
+}
+
+.pmchecklist li:not(.hlt) {
+  transition: background-color 1s ease;
+}
+.pmchecklist li.hlt {
+  background-color: var(--highlight-color);
+}
+
+.pmchecklist li[data-done="2"] {
+  color: var(--done-color);
+  text-decoration: line-through;
+}
+
+.pmchecklist li[data-done="1"] {
+  color: var(--check-started);
+}
+
+
+.pmcheckall,
+.pmchecklist li.done-separator {
+  position: relative;
+  color: var(--theme-color);
+}
+
+.pmchecklist li.done-separator .sep2 {
+  display: inline-block;
+  position: relative;
+  bottom: 0.3em;
+  border-bottom: 1.5px solid var(--theme-color);
+  width: calc(100% - 4em);
+  margin-left: .2em;
+}
+
+.pmchecklist li.done-separator:last-child {
+  display: none;
+}
+
+.pmchecklist, .pmchecklist * {
+  box-sizing: border-box;
+}
+.pmchecklist {
+  padding-left: 0px;
+}
+
+
+.pmchecklist li.done-separator > span {
+  background-color: var(--theme-bgcolor);
+  padding-right: .2em;
+}
+
+
+.pmchecklist li.done-separator {
+  background: linear-gradient(
+    transparent var(--linepos), 
+    var(--theme-color) var(--linepos) calc(var(--linepos) + 1px), 
+    transparent calc(var(--linepos) + 1px) 
+  );
+}
+
+
